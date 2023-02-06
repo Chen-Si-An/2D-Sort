@@ -31,7 +31,7 @@ int main()
 		vecPos[iPos2] = posTmp;
 	}
 
-	bool bDispPnt = true;
+	bool bDispPnt = false;
 
 	if (bDispPnt)
 	{
@@ -58,7 +58,7 @@ int main()
 				cout << "\n";
 			cout << "(" << vecPos[i].m_dX << ", " << vecPos[i].m_dY << ") ";
 		}
-		cout << "\n\n\n\n";
+		cout << "\n";
 	}
 
 	return 0;
