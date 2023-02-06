@@ -1,6 +1,6 @@
 #pragma once
 
-//#define MERGE_SORT
+#define MERGE_SORT
 
 typedef struct CUSTOM_POSITION
 {

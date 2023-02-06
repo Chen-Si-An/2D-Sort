@@ -13,7 +13,7 @@ extern void TwoDSort(vector<CUSTOM_POS>& vecPos, const int iType, const double d
 
 int main()
 {
-	int iSize = 3001;
+	int iSize = 11;
 	vector<CUSTOM_POS> vecPos;
 	vecPos.resize(iSize * iSize);
 	for (int i = 0; i < iSize; i++)
@@ -31,7 +31,7 @@ int main()
 		vecPos[iPos2] = posTmp;
 	}
 
-	bool bDispPnt = false;
+	bool bDispPnt = true;
 
 	if (bDispPnt)
 	{
@@ -46,7 +46,7 @@ int main()
 	}
 
 	clock_t tTime = clock();
-	TwoDSort(vecPos, 2, 1.e-6);
+	TwoDSort(vecPos, 3, 1.e-6);
 	cout << "\nSorting time: " << (clock() - tTime) / 1000. << " sec\n";
 
 	if (bDispPnt)
@@ -58,7 +58,7 @@ int main()
 				cout << "\n";
 			cout << "(" << vecPos[i].m_dX << ", " << vecPos[i].m_dY << ") ";
 		}
-		cout << "\n";
+		cout << "\n\n\n\n";
 	}
 
 	return 0;
