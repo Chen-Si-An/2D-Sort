@@ -1,5 +1,7 @@
 #pragma once
 
+//#define MERGE_SORT
+
 typedef struct CUSTOM_POSITION
 {
 	double m_dX;

@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <iomanip>
 #include <time.h>
 #include <vector>
 using namespace std;
@@ -12,12 +13,12 @@ extern void TwoDSort(vector<CUSTOM_POS>& vecPos, const int iType, const double d
 
 int main()
 {
-	int iSize = 10;
+	int iSize = 3001;
 	vector<CUSTOM_POS> vecPos;
 	vecPos.resize(iSize * iSize);
 	for (int i = 0; i < iSize; i++)
 		for (int j = 0; j < iSize; j++)
-			vecPos[i * iSize + j] = CUSTOM_POS(i * 0.1, j * 0.1);
+			vecPos[i * iSize + j] = CUSTOM_POS(i / double(iSize - 1), j / double(iSize - 1));
 
 	srand((unsigned int)time(NULL));
 	for (int i = 0; i < iSize * iSize; i++)
@@ -30,12 +31,34 @@ int main()
 		vecPos[iPos2] = posTmp;
 	}
 
-	TwoDSort(vecPos, 1, 1.e-6);
-	for (int i = 0; i < (int)vecPos.size(); i++)
+	bool bDispPnt = false;
+
+	if (bDispPnt)
 	{
-		if (i % iSize == 0)
-			cout << "\n";
-		cout << "(" << vecPos[i].m_dX << ", " << vecPos[i].m_dY << ") ";
+		cout << "Input points:" << fixed << setprecision(2);
+		for (int i = 0; i < (int)vecPos.size(); i++)
+		{
+			if (i % iSize == 0)
+				cout << "\n";
+			cout << "(" << vecPos[i].m_dX << ", " << vecPos[i].m_dY << ") ";
+		}
+		cout << "\n";
+	}
+
+	clock_t tTime = clock();
+	TwoDSort(vecPos, 2, 1.e-6);
+	cout << "\nSorting time: " << (clock() - tTime) / 1000. << " sec\n";
+
+	if (bDispPnt)
+	{
+		cout << "\nSorted points:" << fixed << setprecision(2);
+		for (int i = 0; i < (int)vecPos.size(); i++)
+		{
+			if (i % iSize == 0)
+				cout << "\n";
+			cout << "(" << vecPos[i].m_dX << ", " << vecPos[i].m_dY << ") ";
+		}
+		cout << "\n";
 	}
 
 	return 0;

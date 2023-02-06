@@ -1,9 +1,10 @@
 
 #include "2DSort.h"
 #include <vector>
+#include <algorithm>
 using namespace std;
 
-double CUSTOM_POS::m_sdTol = 0.;
+double CUSTOM_POS::m_sdTol = 1.e-7;
 
 template <class T>
 void Merge(vector<T>& vecI, vector<T>& vecS, const int iL, const int iM, const int iR, bool (*Comp) (const T&, const T&))
@@ -74,10 +75,17 @@ void TwoDSort(vector<CUSTOM_POS>& vecPos, const int iType, const double dTol)
 	switch (iType)
 	{
 	case 0:
-		MergeSort(vecPos, (int)vecPos.size(), &Less_X);
-		MergeSort(vecPos, (int)vecPos.size(), &Less_Y);
-		MergeSort(vecRev, (int)vecRev.size(), &Greater_X);
-		MergeSort(vecRev, (int)vecRev.size(), &Less_Y);
+#ifdef MERGE_SORT
+		MergeSort(vecPos, (int)vecPos.size(), Less_X);
+		MergeSort(vecPos, (int)vecPos.size(), Less_Y);
+		MergeSort(vecRev, (int)vecRev.size(), Greater_X);
+		MergeSort(vecRev, (int)vecRev.size(), Less_Y);
+#else
+		stable_sort(vecPos.begin(), vecPos.end(), Less_X);
+		stable_sort(vecPos.begin(), vecPos.end(), Less_Y);
+		stable_sort(vecPos.begin(), vecPos.end(), Greater_X);
+		stable_sort(vecPos.begin(), vecPos.end(), Less_Y);
+#endif // MERGE_SORT
 
 		for (int i = 0; i < (int)vecPos.size(); i++)
 		{
@@ -89,10 +97,17 @@ void TwoDSort(vector<CUSTOM_POS>& vecPos, const int iType, const double dTol)
 		}
 		break;
 	case 1:
-		MergeSort(vecPos, (int)vecPos.size(), &Less_Y);
-		MergeSort(vecPos, (int)vecPos.size(), &Less_X);
-		MergeSort(vecRev, (int)vecRev.size(), &Greater_Y);
-		MergeSort(vecRev, (int)vecRev.size(), &Less_X);
+#ifdef MERGE_SORT
+		MergeSort(vecPos, (int)vecPos.size(), Less_Y);
+		MergeSort(vecPos, (int)vecPos.size(), Less_X);
+		MergeSort(vecRev, (int)vecRev.size(), Greater_Y);
+		MergeSort(vecRev, (int)vecRev.size(), Less_X);
+#else
+		stable_sort(vecPos.begin(), vecPos.end(), Less_Y);
+		stable_sort(vecPos.begin(), vecPos.end(), Less_X);
+		stable_sort(vecPos.begin(), vecPos.end(), Greater_Y);
+		stable_sort(vecPos.begin(), vecPos.end(), Less_X);
+#endif // MERGE_SORT
 
 		for (int i = 0; i < (int)vecPos.size(); i++)
 		{
@@ -104,12 +119,22 @@ void TwoDSort(vector<CUSTOM_POS>& vecPos, const int iType, const double dTol)
 		}
 		break;
 	case 2:
-		MergeSort(vecPos, (int)vecPos.size(), &Less_X);
-		MergeSort(vecPos, (int)vecPos.size(), &Less_Y);
+#ifdef MERGE_SORT
+		MergeSort(vecPos, (int)vecPos.size(), Less_X);
+		MergeSort(vecPos, (int)vecPos.size(), Less_Y);
+#else
+		stable_sort(vecPos.begin(), vecPos.end(), Less_X);
+		stable_sort(vecPos.begin(), vecPos.end(), Less_Y);
+#endif // MERGE_SORT
 		break;
 	case 3:
-		MergeSort(vecPos, (int)vecPos.size(), &Less_Y);
-		MergeSort(vecPos, (int)vecPos.size(), &Less_X);
+#ifdef MERGE_SORT
+		MergeSort(vecPos, (int)vecPos.size(), Less_Y);
+		MergeSort(vecPos, (int)vecPos.size(), Less_X);
+#else
+		stable_sort(vecPos.begin(), vecPos.end(), Less_Y);
+		stable_sort(vecPos.begin(), vecPos.end(), Less_X);
+#endif // MERGE_SORT
 		break;
 	default:
 		break;
@@ -121,32 +146,48 @@ void TwoDSort(vector<CUSTOM_POS>& vecPos, const int iType, const double dTol)
 
 bool Less_X(const CUSTOM_POS& pos1, const CUSTOM_POS& pos2)
 {
+#ifdef MERGE_SORT
 	if (fabs(pos1.m_dX - pos2.m_dX) < CUSTOM_POS::m_sdTol)
 		return true;
 	else
 		return pos1.m_dX < pos2.m_dX;
+#else
+	return pos1.m_dX < pos2.m_dX;
+#endif // MERGE_SORT
 }
 
 bool Greater_X(const CUSTOM_POS& pos1, const CUSTOM_POS& pos2)
 {
+#ifdef MERGE_SORT
 	if (fabs(pos1.m_dX - pos2.m_dX) < CUSTOM_POS::m_sdTol)
 		return true;
 	else
 		return pos1.m_dX > pos2.m_dX;
+#else
+	return pos1.m_dX > pos2.m_dX;
+#endif // MERGE_SORT
 }
 
 bool Less_Y(const CUSTOM_POS& pos1, const CUSTOM_POS& pos2)
 {
+#ifdef MERGE_SORT
 	if (fabs(pos1.m_dY - pos2.m_dY) < CUSTOM_POS::m_sdTol)
 		return true;
 	else
 		return pos1.m_dY < pos2.m_dY;
+#else
+	return pos1.m_dY < pos2.m_dY;
+#endif // MERGE_SORT
 }
 
 bool Greater_Y(const CUSTOM_POS& pos1, const CUSTOM_POS& pos2)
 {
+#ifdef MERGE_SORT
 	if (fabs(pos1.m_dY - pos2.m_dY) < CUSTOM_POS::m_sdTol)
 		return true;
 	else
 		return pos1.m_dY > pos2.m_dY;
+#else
+	return pos1.m_dY > pos2.m_dY;
+#endif // MERGE_SORT
 }
