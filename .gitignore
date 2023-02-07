@@ -5,5 +5,5 @@ x64/
 x86/
 
 [Ext]
-.suo
-.sdf
+*.suo
+*.sdf
