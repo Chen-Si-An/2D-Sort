@@ -1,6 +1,6 @@
 # 2D-Sort
 
-**This project provides an algorithm to sort given 2D points according to specific pattern.**
+### This project provides an algorithm to sort given 2D points according to specific pattern.
 
 1. Pattern 0
 ![Image](https://github.com/Chen-Si-An/2D-Sort/blob/main/Sort_0.bmp)
