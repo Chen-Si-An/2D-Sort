@@ -28,7 +28,7 @@
 
 * Environment: CPU 11th Gen Intel(R) i7-11700 (8 cores), Debug
 
- Number of Points  |    2D Sort   | stable_sort from STL
+ Number of Points  |    2D Sort   |  stable_sort from STL
 :----------------: |   :-------:  | :--------------------:
    1001 * 1001     |   0.351 sec  |       0.401 sec
    2001 * 2001     |   1.442 sec  |       1.619 sec 
