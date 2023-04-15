@@ -1,4 +1,4 @@
-# 2D Sort
+# 2D-Sort
 
 ### This project provides an algorithm to sort given 2D points according to specific pattern.
 
